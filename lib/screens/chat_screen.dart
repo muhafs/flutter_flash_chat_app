@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_app/constants.dart';
 
@@ -11,6 +14,26 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    getCurrentUser();
+  }
+
+  final _auth = FirebaseAuth.instance;
+  late User loggedInUser;
+
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+
+      print(user?.email);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
